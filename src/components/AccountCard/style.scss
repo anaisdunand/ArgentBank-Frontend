@@ -1,0 +1,45 @@
+.account-card {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	background-color: #fff;
+	border: 1px solid black;
+	text-align: left;
+	padding: 1.5rem;
+	margin: 0 auto 2rem;
+
+	@media (min-width: 720px) {
+		flex-direction: row;
+	}
+
+	&__content {
+		width: 100%;
+
+		@media (min-width: 720px) {
+			width: auto;
+
+			&--cta {
+				width: 200px;
+			}
+		}
+	}
+
+	&__title {
+		font-size: 1rem;
+		font-weight: normal;
+		padding: 0;
+		margin: 0;
+	}
+
+	&__amount {
+		margin: 0;
+
+		&--bold {
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+	}
+}
