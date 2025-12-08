@@ -23,9 +23,9 @@ export default function Home() {
 				{featuresData.map((item, index) => (
 					<FeatureCard
 						key={index}
-						src={item.icon} alt={item.name}
 						title={item.title}
 						content={item.content}
+						src={item.icon.src} alt={item.icon.alt}
 					/>
 				))}
 			</section>

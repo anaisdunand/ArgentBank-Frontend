@@ -3,7 +3,7 @@ import Button from "../../components/Button"
 
 import "./style.scss"
 
-export default function User() {
+export default function Profile() {
 	return (
 		<main className="bg-dark">
 			<header className="header">
