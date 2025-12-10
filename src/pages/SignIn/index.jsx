@@ -1,17 +1,18 @@
-import { Link, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import { useLoginMutation } from "../../features/api"
-import { setCredentials } from "../../features/auth/authSlice"
+import { usePostLoginMutation } from "../../features/api"
+import { signIn } from "../../features/auth/authSlice"
 
-import InputWrapper from "../../components/InputWrapper"
+import FormField from "../../components/FormField"
 import Button from "../../components/Button"
 
 import "./style.scss"
 
 export default function SignIn() {
-	const [login, { isLoading }] = useLoginMutation()
+	const [postLogin, { isLoading }] = usePostLoginMutation()
+
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
@@ -20,17 +21,18 @@ export default function SignIn() {
 	
 		const email = event.target.email.value
 		const password = event.target.password.value
-		const rememberMe = event.target.remember.checked
+		const rememberMe = event.target.rememberme.checked
 
 		try {
-			const response = await login({ email, password }).unwrap()
-			const token = response.token
+			const response = await postLogin({ email, password }).unwrap()
+			const token = response.body.token
 
 			if (rememberMe) localStorage.setItem("token", token)
-			dispatch(setCredentials({ token }))
+			dispatch(signIn({ token }))
+
 			navigate("/profile")
 		} catch (error) {
-			console.error("Erreur de connexion :", error)
+			console.error("Login failed", error)
 		}
 	}
 
@@ -40,15 +42,15 @@ export default function SignIn() {
 				<FontAwesomeIcon className="sign-in__icon" icon="user-circle" />
 				<h1>Sign In</h1>
 				<form onSubmit={handleSubmit}>
-					<InputWrapper role="field" type="email" id="email">
+					<FormField type="email" id="email">
 						Email
-					</InputWrapper>
-					<InputWrapper role="field" type="password" id="password">
+					</FormField>
+					<FormField type="password" id="password">
 						Password
-					</InputWrapper>
-					<InputWrapper role="checkbox" type="checkbox" id="remember">
+					</FormField>
+					<FormField type="checkbox" id="rememberme" modifier="checkbox">
 						Remember me
-					</InputWrapper>
+					</FormField>
 					<Button type="submit" large disabled={isLoading}>Sign In</Button>
 				</form>
 			</section>

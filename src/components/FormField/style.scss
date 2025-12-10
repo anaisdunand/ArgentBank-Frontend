@@ -1,0 +1,36 @@
+.field {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	margin-bottom: 1rem;
+
+	&__label {
+		font-weight: bold;
+	}
+	&__input {
+		font-size: 1.2rem;
+		padding: 5px;
+	}
+
+	&--inline {
+		flex-direction: row;
+		align-items: center;
+
+		& .field__label {
+			width: 35%;
+		}
+		& .field__input {
+			width: 65%;
+		}
+	}
+
+	&--checkbox {
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+
+		& .field__label {
+			font-weight: normal;
+			margin-left: 0.25rem;
+		}
+	}
+}

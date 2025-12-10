@@ -6,14 +6,29 @@ export const api = createApi({
         baseUrl: "http://localhost:3001/api/v1/"
     }),
     endpoints: (builder) => ({
-        login: builder.mutation({
+        postLogin: builder.mutation({
             query: (credentials) => ({
                 url: "user/login",
                 method: "POST",
                 body: credentials
             })
+        }),
+        getProfile: builder.query({
+            query: (token) => ({
+                url: "user/profile",
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` }
+            })
+        }),
+        putProfile: builder.mutation({
+            query: ({ token, updatedData }) => ({
+                url: "user/profile",
+                method: "PUT",
+                headers: { Authorization: `Bearer ${token}` },
+                body: updatedData
+            })
         })
     })
 })
 
-export const { useLoginMutation } = api
+export const { usePostLoginMutation, useLazyGetProfileQuery, usePutProfileMutation } = api

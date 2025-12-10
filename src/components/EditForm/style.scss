@@ -1,0 +1,9 @@
+.form {
+	width: 300px;
+
+    &__buttons {
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+	}
+}
