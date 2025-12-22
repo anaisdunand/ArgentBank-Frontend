@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -12,9 +11,7 @@ import "./style.scss"
 
 export default function SignIn() {
 	const [postLogin, { isLoading }] = usePostLoginMutation()
-
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
@@ -28,9 +25,9 @@ export default function SignIn() {
 			const token = response.body.token
 
 			if (rememberMe) localStorage.setItem("token", token)
-			dispatch(signIn({ token }))
+			else sessionStorage.setItem("token", token)
 
-			navigate("/profile")
+			dispatch(signIn({ token }))
 		} catch (error) {
 			console.error("Login failed", error)
 		}

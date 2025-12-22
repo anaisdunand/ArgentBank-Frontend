@@ -11,12 +11,6 @@ export const store = configureStore({
         [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) => (
-        getDefaultMiddleware().prepend(
-            () => (next) => (action) => {
-                console.log("Action", action)
-                return next(action)
-            },
-            api.middleware
-        )
+        getDefaultMiddleware().concat(api.middleware)
     )
 })

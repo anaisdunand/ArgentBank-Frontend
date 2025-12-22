@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { NavLink } from "react-router"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -8,7 +8,8 @@ import { clearUserData } from "../../features/user/userSlice"
 
 import "./style.scss"
 
-export default function NavBar({ user }) {
+export default function NavBar() {
+	const user = useSelector((state) => state.user.data)
 	const dispatch = useDispatch()
 
 	const handleClick = () => {

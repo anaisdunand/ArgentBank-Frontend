@@ -8,6 +8,7 @@ import { setUserData } from "../features/user/userSlice"
 
 import NavBar from "../components/NavBar"
 import PrivateRoute from "../components/PrivateRoute"
+import PublicRoute from "../components/PublicRoute"
 import Footer from "../components/Footer"
 
 import Home from "../pages/Home"
@@ -16,10 +17,9 @@ import Profile from "../pages/Profile"
 
 export default function App() {
 	const token = useSelector((state) => state.auth.token)
-	const user = useSelector((state) => state.user.data)
+	const dispatch = useDispatch()
 
 	const [getProfile] = useLazyGetProfileQuery()
-	const dispatch = useDispatch()
 
 	useEffect(() => {
 		const loadUser = async () => {
@@ -37,15 +37,15 @@ export default function App() {
 
 	return (
 		<BrowserRouter>
-			<NavBar user={user} />
+			<NavBar />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/sign-in" element={<SignIn />} />
-				<Route path="/profile" element={
-					<PrivateRoute token={token}>
-						<Profile token={token} user={user} />
-					</PrivateRoute>
-				} />
+				<Route element={<PublicRoute token={token} />}>
+					<Route path="/sign-in" element={<SignIn />} />
+				</Route>
+				<Route element={<PrivateRoute token={token} />}>
+					<Route path="/profile" element={<Profile token={token} />} />
+				</Route>
 			</Routes>
 			<Footer />
 		</BrowserRouter>

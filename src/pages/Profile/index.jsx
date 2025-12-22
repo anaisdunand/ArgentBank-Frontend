@@ -8,7 +8,8 @@ import EditForm from "../../components/EditForm"
 
 import "./style.scss"
 
-export default function Profile({ token, user }) {
+export default function Profile({ token }) {
+	const user = useSelector((state) => state.user.data)
 	const isEditing = useSelector((state) => state.user.editing)
 	const dispatch = useDispatch()
 
